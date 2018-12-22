@@ -1,5 +1,4 @@
 # OfficeSports
-Database and REST CRUD operations for Office Sports event
 
 Use Case: **Registering a team for a sport** 
 
