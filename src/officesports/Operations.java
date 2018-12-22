@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class Operations {
 	
 	//function to register team
-	public void register_team(int sports_id, int team_id) {
+	public void registerTeam(int sports_id, int team_id) {
 		Event event = new Event();
 		 
 		try
@@ -61,4 +61,42 @@ public class Operations {
 		
 	}
 	
+	//function to add employee to a team
+	public void addToTeam(int team_id, int emp_id) {
+		TeamMembers teamMember = new TeamMembers();
+		
+		try
+	    {
+	      String myDriver = "org.gjt.mm.mysql.Driver";
+	      String myUrl = "jdbc:mysql://localhost/sports";
+	      Class.forName(myDriver);
+	      Connection conn = DriverManager.getConnection(myUrl, "", "");
+	      
+	      String event_count = "select count(event_id) as evcount from employeeevent where emp_id="+emp_id;
+	      
+	      Statement st = conn.createStatement();
+	      
+	      ResultSet rs1 = st.executeQuery(event_count);
+	      int evcount = 0;
+	      while (rs1.next()){evcount = rs1.getInt("evcount");}
+	      
+	      st.close();
+	      
+	      // check if the employee is already registered in 3 events (which is the limit)
+	      if(evcount < 3) {
+	    	  teamMember.setTeamId(team_id);
+	    	  teamMember.setEmpId(emp_id);
+	      }
+	      else {
+	    	  System.out.println("Employee already registered in 3 teams");
+	      }
+	      
+	    }
+	    catch (Exception e)
+	    {
+	      System.err.println(e.getMessage());
+	    }
+		
+		
+	}
 }
