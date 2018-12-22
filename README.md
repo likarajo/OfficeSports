@@ -15,4 +15,12 @@ Therefore, when a team is being registered, against a sport
 5. If 
   * number of teams for registered for the sport is less that max allowed limit, and 
   * number of employees in the team is equal or greater than required team size for the sport, 
-  then register the team in the *Event* table
+  then register the team in the *Event* table 
+  
+New Use Case: **Adding an employee to a team** 
+
+An employee can participate in maximum 3 events
+
+Therefore, when an employee is being added to a team 
+Check ``count(event_id)`` for the employee from the *EmployeeEvent* table 
+If number of events the employee is registered is less than 3, then add the employee to a team in the *Team* table.
